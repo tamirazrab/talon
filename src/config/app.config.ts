@@ -47,6 +47,50 @@ class EnvironmentVariablesValidator {
   @IsString()
   @IsOptional()
   APP_HEADER_LANGUAGE: string;
+
+  @IsString()
+  @IsOptional()
+  APP_NAME: string;
+
+  @IsString()
+  @IsOptional()
+  APP_WORKING_DIRECTORY: string;
+
+  @IsString()
+  @IsOptional()
+  APP_BACKEND_DOMAIN: string;
+
+  @IsString()
+  @IsOptional()
+  OPENAI_API_KEY: string;
+
+  @IsString()
+  @IsOptional()
+  OPENAI_MODEL: string;
+
+  @IsString()
+  @IsOptional()
+  OPENAI_BASE_URL: string;
+
+  @IsString()
+  @IsOptional()
+  OLLAMA_MODEL: string;
+
+  @IsString()
+  @IsOptional()
+  OLLAMA_BASE_URL: string;
+
+  @IsString()
+  @IsOptional()
+  DOCKER_HOST: string;
+
+  @IsString()
+  @IsOptional()
+  REDIS_HOST: string;
+
+  @IsInt()
+  @IsOptional()
+  REDIS_PORT: number;
 }
 
 export default registerAs<AppConfig>('app', () => {
@@ -66,5 +110,16 @@ export default registerAs<AppConfig>('app', () => {
     apiPrefix: process.env.API_PREFIX || 'api',
     fallbackLanguage: process.env.APP_FALLBACK_LANGUAGE || 'en',
     headerLanguage: process.env.APP_HEADER_LANGUAGE || 'x-custom-lang',
+    name: process.env.APP_NAME || 'app',
+    workingDirectory: process.env.PWD || process.cwd(),
+    backendDomain: process.env.APP_BACKEND_DOMAIN ?? 'http://localhost',
+    openaiApiKey: process.env.OPENAI_API_KEY,
+    openaiModel: process.env.OPENAI_MODEL || 'gpt-4',
+    openaiBaseUrl: process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1',
+    ollamaModel: process.env.OLLAMA_MODEL,
+    ollamaBaseUrl: process.env.OLLAMA_BASE_URL || 'http://host.docker.internal:11434',
+    dockerHost: process.env.DOCKER_HOST || '/var/run/docker.sock',
+    redisHost: process.env.REDIS_HOST || 'localhost',
+    redisPort: process.env.REDIS_PORT ? parseInt(process.env.REDIS_PORT, 10) : 6379,
   };
 });
